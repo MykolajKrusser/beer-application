@@ -1,14 +1,39 @@
 import React, { Component } from 'react';
-import classes from  './App.css';
+import {connect} from 'react-redux';
+//import * as actionTypes from './store/actions/actionTypes';
+//import * as action from './store/actions/index';
+
+import Wrap from './hoc/Wrap/Wrap';
+import Header from './components/Header/Header';
+import Layout from './components/Layout/Layout';
+import BeerList from './containers/BeerList/BeerList';
+
 
 class App extends Component {
+  
   render() {
     return (
-      <div className={classes.App}>
-        hello
-      </div>
+      <Wrap>
+        <Header/>
+        <Layout>
+          hello
+          <BeerList/>
+        </Layout>
+      </Wrap>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state =>{
+  return {
+    
+  };
+};
+
+const mapDispatchToProps = dispatch =>{
+  return{
+    
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -9,9 +9,12 @@ import errorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Loader from '../../components/UI/Loader/Loader';
 
 class BeerList extends Component {
+    componentDidMount(){
+        this.props.onInitData();
+    }
     
     render() {
-        
+        console.log(this.props.data)
         return (
            <div className={classes}>
            </div>
@@ -21,11 +24,12 @@ class BeerList extends Component {
 
 const mapStateToProps = state =>{
     return {
+        data: state.data.data,
     };
 };
 const mapDispatchToProps = dispatch =>{
     return{
-
+        onInitData: ()=> dispatch(actions.initData()),
     };
 };
 
