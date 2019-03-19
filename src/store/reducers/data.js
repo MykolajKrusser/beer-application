@@ -3,7 +3,8 @@ import * as actionsType from '../actions/actionTypes';
 const initialState = {
     data: null,
     loader: true,
-    error:false
+    error:false,
+    selectedBrewery: null
 }
 
 const reducer = (state=initialState, action)=>{
@@ -20,6 +21,12 @@ const reducer = (state=initialState, action)=>{
             return{
                 ...state,
                 error: true
+            };
+        case actionsType.SELECTED_BREWERY:
+            let selected = action.data;
+            return{
+                ...state,
+                selectedBrewery: selected
             };
         default :
             return state;

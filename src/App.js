@@ -16,7 +16,6 @@ class App extends Component {
       <Wrap>
         <Header/>
         <Layout>
-          hello
           <BeerList/>
         </Layout>
       </Wrap>

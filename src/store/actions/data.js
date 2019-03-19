@@ -32,3 +32,11 @@ export const initData = ()=>{
         });
     }
 }
+
+
+export const selectBrewery = (data)=>{
+    return {
+        type: actionTypes.SELECTED_BREWERY,
+        data: data
+    }
+};
