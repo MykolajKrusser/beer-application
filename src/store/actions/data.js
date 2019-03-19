@@ -23,9 +23,9 @@ export const fetchDataFailed = ()=>{
 
 export const initData = ()=>{
     return dispatch=>{
-        axios.get('http://ontariobeerapi.ca/products/')
+        axios.get(`${'https://cors-anywhere.herokuapp.com/'}http://ontariobeerapi.ca/products/`)
         .then(respons=>{
-            dispatch(setData(respons))
+            dispatch(setData(respons.data))
         })
         .catch(error=>{
             dispatch(fetchDataFailed())
