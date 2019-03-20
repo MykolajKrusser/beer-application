@@ -10,10 +10,11 @@ const reducer = (state=initialState, action)=>{
             let newData;
             if(state.theme === 'light'){
                 newData = 'dark';
+                localStorage.setItem('theme', 'dark');
             }else{
                 newData = 'light';
+                localStorage.setItem('theme', 'light');
             };
-            console.log(state.theme)
             return{
                 ...state,
                 theme: newData,

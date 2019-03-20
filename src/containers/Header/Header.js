@@ -13,6 +13,12 @@ class Toolbar extends Component{
         show: false
     };
     
+    componentDidMount(){
+        if(localStorage.getItem('theme') === 'dark'){
+            this.props.onThemeChange();
+        }
+    }
+
     showModal = ()=>{
         this.setState({show: true});
     };
@@ -22,7 +28,6 @@ class Toolbar extends Component{
     };
 
     render(){
-        console.log(this.props.theme)
         return(
             <header className={this.props.theme === 'light' ? classes.Header : classes.HeaderDark}>
                 <Modal show={this.state.show} modalClosed={this.closeModal}>
@@ -32,8 +37,8 @@ class Toolbar extends Component{
                 <Button click={this.showModal}>Options</Button>
             </header>
         );
-    }
-}
+    };
+};
 const mapStateToProps = state =>{
     return {
         theme: state.options.theme
@@ -41,7 +46,7 @@ const mapStateToProps = state =>{
 };
 const mapDispatchToProps = dispatch =>{
     return{
-        onThemeChange: ()=> dispatch({type: actionTypes.THEME_CHANGE})
+        onThemeChange: (data)=> dispatch({type: actionTypes.THEME_CHANGE , data: data})
     };
 };
 
