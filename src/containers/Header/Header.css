@@ -8,7 +8,6 @@
     color: white;
     padding: 0 25px;
     box-sizing: border-box;
+    align-items: center;
 }
-.Header img{
-    margin-top: 5px;
-}
+
