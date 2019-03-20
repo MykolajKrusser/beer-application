@@ -1,0 +1,23 @@
+.BeerCard{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid gray;
+    border-radius: 2%;
+    margin: 5px;
+}
+
+.SmallPic{
+    width: 40px;
+    height: 40px;
+    border: 1px solid transparent;
+    border-radius: 50%;
+}
+
+.ShowBigPic{
+    width: 100%;
+    height: 100%;
+    border: 1px solid transparent;
+    border-radius: 2%;
+}

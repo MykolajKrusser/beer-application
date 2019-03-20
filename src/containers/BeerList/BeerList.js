@@ -8,7 +8,7 @@ import axios from 'axios';
 import errorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Loader from '../../components/UI/Loader/Loader';
 import MyButton from '../../components/UI/Button/Button';
-
+import BeerCard from '../../components/UI/BeerCard/BeerCard';
 
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
@@ -65,6 +65,7 @@ class BeerList extends Component {
                     this.setState({limit: 15})
                     return this.props.onSelectBrewery(brewer)}}>{brewer}</MenuItem>
             });
+
             MenuBrewer = <div><Button
                             aria-owns={anchorEl ? 'simple-menu' : undefined}
                             aria-haspopup="true"
@@ -88,7 +89,7 @@ class BeerList extends Component {
             });
             
             listSorted =  sortedBeers.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)).slice(0, this.state.limit).map(beer => {
-                return <li key={beer.product_id}>{beer.name} from {beer.brewer}</li>
+                return <BeerCard key={beer.product_id + beer.beer_id} beer={beer}/>
             });
         }
         return (
