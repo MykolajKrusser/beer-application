@@ -4,7 +4,8 @@ const initialState = {
     data: null,
     loader: true,
     error:false,
-    selectedBrewery: null
+    selectedBrewer: null,
+    sortedBeers: null
 }
 
 const reducer = (state=initialState, action)=>{
@@ -22,11 +23,11 @@ const reducer = (state=initialState, action)=>{
                 ...state,
                 error: true
             };
-        case actionsType.SELECTED_BREWERY:
+        case actionsType.SELECTED_BREWER:
             let selected = action.data;
             return{
                 ...state,
-                selectedBrewery: selected
+                selectedBrewer: selected
             };
         default :
             return state;

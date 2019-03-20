@@ -28,19 +28,22 @@ class BeerList extends Component {
     handleClose = () => {
         this.setState({ anchorEl: null });
     };
+
+    sortBybrewery = () => {
+        
+    }
         
     render() {
         console.log(this.props.data)
         const { anchorEl } = this.state;
         let MenuBrewer;
+        let list;
         if(this.props.loader){
-            MenuBrewer = <Loader/>
+            MenuBrewer = <Loader/>;
+            list = <Loader/>
         }else{
             let brewers = []
-            this.props.data.map(brewer => {
-                brewers.push(brewer.brewer);
-                
-            })
+            this.props.data.map(brewer => brewers.push(brewer.brewer))
             let unique = (arr)=>{
                 let obj = {};
               
@@ -54,30 +57,39 @@ class BeerList extends Component {
             let brewersName = uniqueBrewersName.map( brewer =>{
                 return <MenuItem key={brewer} onClick={()=>this.props.onSelectBrewery(brewer)}>{brewer}</MenuItem>
             })
-            console.log(this.state.anchorEl)
-            return (<div><Button
-                        aria-owns={anchorEl ? 'simple-menu' : undefined}
-                        aria-haspopup="true"
-                        onClick={this.handleClick}
-                    >
-                        Brewers
-                    </Button>
-                    <Menu
-                        id="simple-menu"
-                        anchorEl={anchorEl}
-                        open={Boolean(anchorEl)}
-                        onClose={this.handleClose}
-                    >
-                        {brewersName}
-                    </Menu>
-                </div>
-            )
+            MenuBrewer = <div><Button
+                            aria-owns={anchorEl ? 'simple-menu' : undefined}
+                            aria-haspopup="true"
+                            onClick={this.handleClick}
+                            >
+                                Brewers
+                            </Button>
+                            <Menu
+                                id="simple-menu"
+                                anchorEl={anchorEl}
+                                open={Boolean(anchorEl)}
+                                onClose={this.handleClose}
+                            >
+                                {brewersName}
+                            </Menu>
+                        </div>
+            list = this.props.data.map(beer => {
+                if(beer.brewer === this.props.selectedBrewer){
+                    return <li key={beer.product_id}>{beer.name} from {beer.brewer}</li>
+                }
+            })
         }
+        
 
         return (
-            <div >
+        <section className={classes.BeerList}>
+            <div className={classes.Button}>
                 {MenuBrewer}
             </div>
+            <ul>
+                {list}
+            </ul>
+        </section>
         );
     }
 }
@@ -86,13 +98,14 @@ const mapStateToProps = state =>{
     return {
         data: state.data.data,
         loader: state.data.loader,
-        selectedBrewery: state.data.selectedBrewery
+        selectedBrewer: state.data.selectedBrewer,
+        sortedBeers: state.data.sortedBeers
     };
 };
 const mapDispatchToProps = dispatch =>{
     return{
         onInitData: ()=> dispatch(actions.initData()),
-        onSelectBrewery: (data)=> dispatch({type: actionTypes.SELECTED_BREWERY, data: data})
+        onSelectBrewery: (data)=> dispatch({type: actionTypes.SELECTED_BREWER, data: data})
     };
 };
 

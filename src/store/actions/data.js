@@ -34,9 +34,9 @@ export const initData = ()=>{
 }
 
 
-export const selectBrewery = (data)=>{
+export const selectBrewer = (data)=>{
     return {
-        type: actionTypes.SELECTED_BREWERY,
+        type: actionTypes.SELECTED_BREWER,
         data: data
     }
 };

@@ -1,2 +1,2 @@
 export { initData } from './data';
-export { selectBrewery } from './data';
+export { selectBrewer } from './data';
