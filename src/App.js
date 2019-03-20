@@ -7,6 +7,8 @@ import Wrap from './hoc/Wrap/Wrap';
 import Header from './components/Header/Header';
 import Layout from './components/Layout/Layout';
 import BeerList from './containers/BeerList/BeerList';
+import BeerList2 from './containers/BeerList2/BeerList2';
+import BeerList3 from './containers/BeerList3/BeerList3';
 
 
 class App extends Component {
@@ -17,6 +19,8 @@ class App extends Component {
         <Header/>
         <Layout>
           <BeerList/>
+          <BeerList2/>
+          <BeerList3/>
         </Layout>
       </Wrap>
     );

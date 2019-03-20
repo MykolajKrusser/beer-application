@@ -110,13 +110,13 @@ const mapStateToProps = state =>{
     return {
         data: state.data.data,
         loader: state.data.loader,
-        selectedBrewer: state.data.selectedBrewer,
+        selectedBrewer: state.data.selectedBrewer3
     };
 };
 const mapDispatchToProps = dispatch =>{
     return{
         onInitData: ()=> dispatch(actions.initData()),
-        onSelectBrewery: (data)=> dispatch({type: actionTypes.SELECTED_BREWER, data: data})
+        onSelectBrewery: (data)=> dispatch({type: actionTypes.SELECTED_BREWER3, data: data})
     };
 };
 

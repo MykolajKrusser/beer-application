@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classes from './BeerCard.css';
-import Modal from '../Modal/Modal';
+import Modal from '../../components/UI/Modal/Modal';
 
 
 class beerCard extends Component {
@@ -20,9 +20,9 @@ class beerCard extends Component {
         
         return(
             <li className={classes.BeerCard}>
-            <Modal show={this.state.show} modalClosed={this.closeBigPic}>
-                <img className={classes.ShowBigPic} src={this.props.beer.image_url} alt={this.props.beer.name} onClick={this.showBigPic}/>
-            </Modal>
+                <Modal show={this.state.show} modalClosed={this.closeBigPic}>
+                    <img className={classes.ShowBigPic} src={this.props.beer.image_url} alt={this.props.beer.name} onClick={this.showBigPic}/>
+                </Modal>
                 <div>
                     <h1>{this.props.beer.name}</h1>
                     <p>type: {this.props.beer.type}</p>

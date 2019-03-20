@@ -40,3 +40,17 @@ export const selectBrewer = (data)=>{
         data: data
     }
 };
+
+export const selectBrewer2 = (data)=>{
+    return {
+        type: actionTypes.SELECTED_BREWER2,
+        data: data
+    }
+};
+
+export const selectBrewer3 = (data)=>{
+    return {
+        type: actionTypes.SELECTED_BREWER3,
+        data: data
+    }
+};
