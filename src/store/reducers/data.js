@@ -26,18 +26,21 @@ const reducer = (state=initialState, action)=>{
             };
         case actionsType.SELECTED_BREWER:
             let selected = action.data;
+            localStorage.setItem('SELECTED_BREWER', selected);
             return{
                 ...state,
                 selectedBrewer: selected
             };
         case actionsType.SELECTED_BREWER2:
             let selected2 = action.data;
+            localStorage.setItem('SELECTED_BREWER2', selected2);
             return{
                 ...state,
                 selectedBrewer2: selected2
             };
         case actionsType.SELECTED_BREWER3:
             let selected3 = action.data;
+            localStorage.setItem('SELECTED_BREWER3', selected3);
             return{
                 ...state,
                 selectedBrewer3: selected3

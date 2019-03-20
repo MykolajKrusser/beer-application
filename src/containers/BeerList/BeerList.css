@@ -4,6 +4,10 @@
     justify-content: flex-start;
     width: 100%;
 }
+.BeerList ul{
+    list-style: none;
+    padding-inline-start: 0;
+}
 .Button{
     height: 30px;
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './BeerList.css';
+import classes from '../BeerList/BeerList.css';
 
 import {connect} from 'react-redux';
 import * as actions from '../../store/actions/index';
@@ -18,12 +18,19 @@ class BeerList extends Component {
     state = {
         anchorEl: null,
         limit: 15,
+        limitStep: 15,
         moreButton: false
     };
 
     componentDidMount(){
         this.props.onInitData();
-    }
+        if(localStorage.getItem("SELECTED_BREWER2")){
+            this.props.onSelectBrewery(localStorage.getItem("SELECTED_BREWER2"));
+        };
+        if(localStorage.getItem("limit2")){
+            this.setState({limit: Number(localStorage.getItem("limit2"))});
+        };
+    };
 
     handleClick = event => {
         this.setState({ anchorEl: event.currentTarget });
@@ -33,20 +40,19 @@ class BeerList extends Component {
         this.setState({ anchorEl: null });
     };
 
-    loarMoreHandler = () => {
-        this.setState({limit: this.state.limit + 15})
-    }
+    loadMoreHandler = () => {
+        this.setState({limit: this.state.limit + this.state.limitStep});
+        localStorage.setItem('limit2', null);
+        localStorage.setItem('limit2', Number(this.state.limit + this.state.limitStep));
+    };
         
     render() {
-        console.log(this.props.data)
         const { anchorEl } = this.state;
         let MenuBrewer;
-        let list;
         let listSorted;
         let sortedBeers = [];
         if(this.props.loader){
             MenuBrewer = <Loader/>;
-            list = <div></div>;
         }else{
             let brewers = [];
             this.props.data.map(brewer => brewers.push(brewer.brewer));
@@ -62,7 +68,7 @@ class BeerList extends Component {
             let uniqueBrewersName = unique(brewers);
             let brewersName = uniqueBrewersName.map( brewer =>{
                 return <MenuItem key={brewer} onClick={()=>{
-                    this.setState({limit: 15})
+                    this.setState({limit: this.state.limitStep})
                     return this.props.onSelectBrewery(brewer)}}>{brewer}</MenuItem>
             });
 
@@ -81,11 +87,14 @@ class BeerList extends Component {
                             >
                                 {brewersName}
                             </Menu>
-                        </div>;  
-            list = this.props.data.map(beer => {
+                        </div>;
+
+            this.props.data.map(beer => {
                 if(beer.brewer === this.props.selectedBrewer){
                     sortedBeers.push(beer);
                 };
+                // eslint-disable-next-line array-callback-return
+                return
             });
             
             listSorted =  sortedBeers.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)).slice(0, this.state.limit).map(beer => {
@@ -100,11 +109,11 @@ class BeerList extends Component {
             <ul>
                 {listSorted}
             </ul>
-            {sortedBeers.length > this.state.limit ? <MyButton click={this.loarMoreHandler}>Load more</MyButton> : null}
+            {sortedBeers.length > this.state.limit ? <MyButton click={this.loadMoreHandler}>Load more</MyButton> : null}
         </section>
         );
-    }
-}
+    };
+};
 
 const mapStateToProps = state =>{
     return {
