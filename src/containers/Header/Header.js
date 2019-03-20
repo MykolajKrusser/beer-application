@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import * as actionTypes from '../../store/actions/actionTypes';
+
 import classes from './Header.css';
 
 import Logo from '../../components/UI/Logo/Logo';
@@ -19,10 +22,11 @@ class Toolbar extends Component{
     };
 
     render(){
+        console.log(this.props.theme)
         return(
-            <header className={classes.Header}>
+            <header className={this.props.theme === 'light' ? classes.Header : classes.HeaderDark}>
                 <Modal show={this.state.show} modalClosed={this.closeModal}>
-                    
+                    <Button click={this.props.onThemeChange}>SWITCH TO {this.props.theme === 'light' ? 'dark': 'light'} THEME</Button>
                 </Modal>
                 <Logo/>
                 <Button click={this.showModal}>Options</Button>
@@ -30,4 +34,15 @@ class Toolbar extends Component{
         );
     }
 }
-export default Toolbar;
+const mapStateToProps = state =>{
+    return {
+        theme: state.options.theme
+    };
+};
+const mapDispatchToProps = dispatch =>{
+    return{
+        onThemeChange: ()=> dispatch({type: actionTypes.THEME_CHANGE})
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Toolbar);
