@@ -8,7 +8,6 @@ import axios from 'axios';
 import errorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Loader from '../../components/UI/Loader/Loader';
 import MyButton from '../../components/UI/Button/Button';
-import Wrap from '../../hoc/Wrap/Wrap';
 
 
 import Button from '@material-ui/core/Button';
@@ -18,16 +17,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 class BeerList extends Component {
     state = {
         anchorEl: null,
-        totalBeerAmount: null,
         limit: 15,
         moreButton: false
     };
 
     componentDidMount(){
         this.props.onInitData();
-        //if(sortedBeers.length > this.state.limit){
-        //        this.setState({moreButton: true})
-        //    }
     }
 
     handleClick = event => {
@@ -38,6 +33,9 @@ class BeerList extends Component {
         this.setState({ anchorEl: null });
     };
 
+    loarMoreHandler = () => {
+        this.setState({limit: this.state.limit + 15})
+    }
         
     render() {
         console.log(this.props.data)
@@ -63,7 +61,9 @@ class BeerList extends Component {
             }
             let uniqueBrewersName = unique(brewers);
             let brewersName = uniqueBrewersName.map( brewer =>{
-                return <MenuItem key={brewer} onClick={()=>this.props.onSelectBrewery(brewer)}>{brewer}</MenuItem>
+                return <MenuItem key={brewer} onClick={()=>{
+                    this.setState({limit: 15})
+                    return this.props.onSelectBrewery(brewer)}}>{brewer}</MenuItem>
             });
             MenuBrewer = <div><Button
                             aria-owns={anchorEl ? 'simple-menu' : undefined}
@@ -89,10 +89,7 @@ class BeerList extends Component {
             
             listSorted =  sortedBeers.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)).slice(0, this.state.limit).map(beer => {
                 return <li key={beer.product_id}>{beer.name} from {beer.brewer}</li>
-            })
-            
-            
-            //console.log(this.state.totalBeerAmount)
+            });
         }
         return (
         <section className={classes.BeerList}>
@@ -102,7 +99,7 @@ class BeerList extends Component {
             <ul>
                 {listSorted}
             </ul>
-            {sortedBeers.length > this.state.limit ? <MyButton>Load more</MyButton> : null}
+            {sortedBeers.length > this.state.limit ? <MyButton click={this.loarMoreHandler}>Load more</MyButton> : null}
         </section>
         );
     }
