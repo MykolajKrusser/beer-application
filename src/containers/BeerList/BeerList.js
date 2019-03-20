@@ -7,6 +7,9 @@ import * as actionTypes from '../../store/actions/actionTypes';
 import axios from 'axios';
 import errorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Loader from '../../components/UI/Loader/Loader';
+import MyButton from '../../components/UI/Button/Button';
+import Wrap from '../../hoc/Wrap/Wrap';
+
 
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
@@ -15,10 +18,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 class BeerList extends Component {
     state = {
         anchorEl: null,
+        totalBeerAmount: null,
+        limit: 15,
+        moreButton: false
     };
 
     componentDidMount(){
         this.props.onInitData();
+        //if(sortedBeers.length > this.state.limit){
+        //        this.setState({moreButton: true})
+        //    }
     }
 
     handleClick = event => {
@@ -29,34 +38,33 @@ class BeerList extends Component {
         this.setState({ anchorEl: null });
     };
 
-    sortBybrewery = () => {
-        
-    }
         
     render() {
         console.log(this.props.data)
         const { anchorEl } = this.state;
         let MenuBrewer;
         let list;
+        let listSorted;
+        let sortedBeers = [];
         if(this.props.loader){
             MenuBrewer = <Loader/>;
-            list = <Loader/>
+            list = <div></div>;
         }else{
-            let brewers = []
-            this.props.data.map(brewer => brewers.push(brewer.brewer))
+            let brewers = [];
+            this.props.data.map(brewer => brewers.push(brewer.brewer));
             let unique = (arr)=>{
                 let obj = {};
               
                 for (let i = 0; i < arr.length; i++) {
                   let str = arr[i];
                   obj[str] = true; 
-                }
+                };
                 return Object.keys(obj);
             }
             let uniqueBrewersName = unique(brewers);
             let brewersName = uniqueBrewersName.map( brewer =>{
                 return <MenuItem key={brewer} onClick={()=>this.props.onSelectBrewery(brewer)}>{brewer}</MenuItem>
-            })
+            });
             MenuBrewer = <div><Button
                             aria-owns={anchorEl ? 'simple-menu' : undefined}
                             aria-haspopup="true"
@@ -72,23 +80,29 @@ class BeerList extends Component {
                             >
                                 {brewersName}
                             </Menu>
-                        </div>
+                        </div>;  
             list = this.props.data.map(beer => {
                 if(beer.brewer === this.props.selectedBrewer){
-                    return <li key={beer.product_id}>{beer.name} from {beer.brewer}</li>
-                }
+                    sortedBeers.push(beer);
+                };
+            });
+            
+            listSorted =  sortedBeers.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)).slice(0, this.state.limit).map(beer => {
+                return <li key={beer.product_id}>{beer.name} from {beer.brewer}</li>
             })
+            
+            
+            //console.log(this.state.totalBeerAmount)
         }
-        
-
         return (
         <section className={classes.BeerList}>
             <div className={classes.Button}>
                 {MenuBrewer}
             </div>
             <ul>
-                {list}
+                {listSorted}
             </ul>
+            {sortedBeers.length > this.state.limit ? <MyButton>Load more</MyButton> : null}
         </section>
         );
     }
