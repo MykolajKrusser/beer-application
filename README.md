@@ -41,7 +41,7 @@ Installed dependencies:
 14. Upgraded Header component to statefull, and prepared it for options to fill in.
 15. Added theme change option, rows switcher, sort options.
 
-## Project unbundl git pack
+## Project unbundl git pack in any folder
 ```
 git init
 git pull Mykolaj-Krusser-contelizer-task2.bundle master
