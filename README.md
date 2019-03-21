@@ -4,7 +4,7 @@ Based on following API: http://ontariobeerapi.ca/ write a beer application
 
 ## The task
 
- It should consist of:
+It should consist of:
 
 1. Three column layout, where each column is a list of beers (Beer endpoint) by Brewer (example Molson, Kompania Piwowarska S.A. etc).
 2. Initially lists are empty, and there’s a drop-down on top of each one with all possible brewers.
@@ -22,22 +22,42 @@ Based on following API: http://ontariobeerapi.ca/ write a beer application
 
 1. I used `create-react-app` template. Cleared code from react box-package.
 Installed dependencies: 
-    "axios": "^0.18.0" for working with `get` & `post` requests.  
-    "react-redux": "^6.0.0",  "redux": "^4.0.1",  for creating redux store and binding it with react. 
-    "redux-thunk": "^2.3.0" for async work with redux. 
-    "react-debounce-input": "^3.2.0" this is a ready-made component for the synthetic delay of the event firing.
-    "react-firebaseui": "^3.1.2", "firebase": "^5.7.3", these are ready solutions for authorization of social networks in the application through Google FireBase.
-    "enzyme": "^3.8.0", "enzyme-adapter-react-16": "^1.7.1", it is a good method for Jest tests.
-    "react-table": "^6.8.6" - is a lightweight, fast and extendable datagrid built for React.
+    "axios" for working with `get` & `post` requests.  
+    "react-redux",  "redux",  for creating redux store and binding it with react. 
+    "redux-thunk" for async work with redux.
+    "material-ui"  for use ready style solutions.
 2. My next step was ejection of webpack.config and adding css-modules concept - This method automatically uses BEM, isolates component styles, leaving the possibility of using global styles. Styles are used as objects in JSX.
 3. I used REDUX_DEVTOOLS_EXTENSION for controlling states changes in my app. Recommend to install it in developer mode, in other way the error will be thrown.
-4. The `src` folder structure contains `assets` with imgs, svg & so on. The `components` folder is filled with stateless components like buttons, inputs and so on. The `container` folder has statefull components with the main logic. I also use `higher order components (hoc)` for layout, wrapping JSX (to avoid useless nesting), and error handling purpuses. Finally in the `store` folder I have got Redux with `actions` & `reducers` folder. 
-5. I procceded writing the main logic. I have created main layout for containing all components. Added header, logo. Later added input, table component.
+4. The `src` folder structure contains `assets` with imgs, svg & so on. The `components` folder is filled with stateless components like buttons, inputs and so on. The `container` folder has statefull components with the main logic. I also use `higher order components (hoc)` "Wrap" for wrapping JSX (to avoid useless nesting), and error handling purpuses. Finally in the `store` folder I have got Redux with `actions` & `reducers` folder. Folder `common` for different functions. 
+5. I procceded writing the main logic. I have created main layout for containing all components. Added header, logo.
 6. Right after I created Redux store with the possibility of asynchronous code in action creators. Proceded to main reducer for the work with states which I get from action creators.
-7. On successful getting search data from GitHub API I ran into necessity of errors displaying from API. For these purposes I created modal and backdrop components. At that point I implemented storing data in the localstorage.
-8. The table data from reducer states I used with react table component.
-9. For the purpose of Signing in with the GitHub task I used Firebase package to get auth data from GitHub and added this functionality. The data was saved to the localstorage on this stage as well.
-10. I highlighted the repos of the currently authenticated user by comparising user id retained in local storage with the user id in each table row.
+7. On successful getting search data from API I ran into necessity of errors displaying from API. For these purposes I created modal and backdrop components.
+8. Fixed Access-Control-Allow-Origin error by using "axios.get(`${'https://cors-anywhere.herokuapp.com/'}http://ontariobeerapi.ca/products/`)"
+9. Provided drop-down menu with brewery list, and selecting brewery nam to state for filtering
+10. Added load more button, beers sorting
 11. In the proccess of app creation I every now and then fixed logical errors, bugs, typos and edited css styles.
-12. I finished writing simple jest tests for two components of my app.
+12. Added beerCard and its styles
+13. Created three columns of a list of beers. Added localstorage memory for users selection.
+14. Upgraded Header component to statefull, and prepared it for options to fill in.
+15. Added theme change option, rows switcher, sort options.
 
+## Project unbundl git pack
+```
+git init
+git pull Mykolaj-Krusser-contelizer-task2.bundle master
+```
+
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm start
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
