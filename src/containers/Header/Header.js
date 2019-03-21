@@ -5,19 +5,27 @@ import * as actionTypes from '../../store/actions/actionTypes';
 import classes from './Header.css';
 
 import Logo from '../../components/UI/Logo/Logo';
-import Button from '../../components/UI/Button/Button';
+import MyButton from '../../components/UI/Button/Button';
 import Modal from '../../components/UI/Modal/Modal';
+
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 class Toolbar extends Component{
     state = {
-        show: false
+        show: false,
+        anchorEl: null,
     };
     
     componentDidMount(){
         if(localStorage.getItem('theme') === 'dark'){
             this.props.onThemeChange();
-        }
-    }
+        };
+        if(localStorage.getItem('sortByProp')){
+            this.props.onSortChange(localStorage.getItem('sortByProp'));
+        };
+    };
 
     showModal = ()=>{
         this.setState({show: true});
@@ -27,19 +35,56 @@ class Toolbar extends Component{
         this.setState({show: false});
     };
 
+    handleClick = event => {
+        this.setState({ anchorEl: event.currentTarget });
+    };
+    
+    handleClose = () => {
+        this.setState({ anchorEl: null });
+    };
+
     render(){
+        const { anchorEl } = this.state;
         return(
             <header className={this.props.theme === 'light' ? classes.Header : classes.HeaderDark}>
                 <Modal show={this.state.show} modalClosed={this.closeModal}>
-                    <Button click={this.props.onThemeChange}>SWITCH TO {this.props.theme === 'light' ? 'dark': 'light'} THEME</Button>
+                    <MyButton click={this.props.onThemeChange}>SWITCH TO {this.props.theme === 'light' ? 'dark': 'light'} THEME</MyButton>
                     <div className={classes.SwitchRaws}>
                         <button onClick={this.props.onLimitChange} value='15'>15 raws</button>
                         <button onClick={this.props.onLimitChange} value='30'>30 raws</button>
                         <button onClick={this.props.onLimitChange} value='45'>45 raws</button>
                     </div>
+                    <div>
+                        <Button
+                            aria-owns={anchorEl ? 'simple-menu' : undefined}
+                            aria-haspopup="true"
+                            onClick={this.handleClick}
+                            >
+                            Sort Raws
+                        </Button>
+                        <Menu
+                            id="simple-menu"
+                            anchorEl={anchorEl}
+                            open={Boolean(anchorEl)}
+                            onClose={this.handleClose}
+                        >
+                            <MenuItem onClick={()=>{
+                                    this.handleClose()
+                                    return this.props.onSortChange('name')
+                            }}>NAME</MenuItem>
+                            <MenuItem onClick={()=>{
+                                    this.handleClose()
+                                    return this.props.onSortChange('price')
+                            }}>PRICE</MenuItem>
+                            <MenuItem onClick={()=>{
+                                    this.handleClose()
+                                    return this.props.onSortChange('type')
+                            }}>TYPE</MenuItem>
+                        </Menu>
+                    </div>
                 </Modal>
                 <Logo/>
-                <Button click={this.showModal}>Options</Button>
+                <MyButton click={this.showModal}>Options</MyButton>
             </header>
         );
     };
@@ -53,7 +98,8 @@ const mapStateToProps = state =>{
 const mapDispatchToProps = dispatch =>{
     return{
         onThemeChange: (data)=> dispatch({type: actionTypes.THEME_CHANGE , data: data}),
-        onLimitChange: (event)=> dispatch({type: actionTypes.LIMIT_CHANGE, event: event})
+        onLimitChange: (event)=> dispatch({type: actionTypes.LIMIT_CHANGE, event: event}),
+        onSortChange: (event)=> dispatch({type: actionTypes.SORT_CHANGE, event: event})
     };
 };
 

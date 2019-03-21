@@ -13,3 +13,10 @@ export const limitChange = (event)=>{
         event: event
     }
 };
+
+export const sortChange = (event)=>{
+    return {
+        type: actionTypes.SORT_CHANGE,
+        event: event
+    }
+};

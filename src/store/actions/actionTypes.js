@@ -9,3 +9,4 @@ export const SELECTED_BREWER3 = 'SELECTED_BREWER3';
 
 export const THEME_CHANGE = 'THEME_CHANGE';
 export const LIMIT_CHANGE = 'LIMIT_CHANGE';
+export const SORT_CHANGE = 'SORT_CHANGE';

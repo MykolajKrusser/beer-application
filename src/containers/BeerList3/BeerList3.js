@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classes from '../BeerList/BeerList.css';
 
 import {connect} from 'react-redux';
+import { dynamicSort } from '../../common/sortFunc/dynamicSort';
 import * as actions from '../../store/actions/index';
 import * as actionTypes from '../../store/actions/actionTypes';
 import axios from 'axios';
@@ -98,7 +99,7 @@ class BeerList extends Component {
                 return
             });
             
-            listSorted =  sortedBeers.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)).slice(0, this.state.limit).map(beer => {
+            listSorted =  sortedBeers.sort(dynamicSort(this.props.sortByProp)).slice(0, this.state.limit).map(beer => {
                 return <BeerCard key={beer.product_id + beer.beer_id} beer={beer}/>
             });
         }
@@ -121,7 +122,8 @@ const mapStateToProps = state =>{
         data: state.data.data,
         loader: state.data.loader,
         selectedBrewer: state.data.selectedBrewer3,
-        limitStep: state.options.limitStep
+        limitStep: state.options.limitStep,
+        sortByProp: state.options.sortByProp
     };
 };
 const mapDispatchToProps = dispatch =>{

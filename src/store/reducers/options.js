@@ -2,7 +2,8 @@ import * as actionsType from '../actions/actionTypes';
 
 const initialState = {
     theme: 'light',
-    limitStep: 15
+    limitStep: 15,
+    sortByProp: 'name'
 }
 
 const reducer = (state=initialState, action)=>{
@@ -18,12 +19,18 @@ const reducer = (state=initialState, action)=>{
             };
             return{
                 ...state,
-                theme: newData,
+                theme: newData
             };
         case actionsType.LIMIT_CHANGE:
             return{
                 ...state,
-                limitStep: Number(action.event.target.value),
+                limitStep: Number(action.event.target.value)
+            };
+        case actionsType.SORT_CHANGE:
+            localStorage.setItem('sortByProp', action.event);
+            return{
+                ...state,
+                sortByProp: action.event
             };
         default :
             return state;
