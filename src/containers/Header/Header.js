@@ -32,6 +32,11 @@ class Toolbar extends Component{
             <header className={this.props.theme === 'light' ? classes.Header : classes.HeaderDark}>
                 <Modal show={this.state.show} modalClosed={this.closeModal}>
                     <Button click={this.props.onThemeChange}>SWITCH TO {this.props.theme === 'light' ? 'dark': 'light'} THEME</Button>
+                    <div className={classes.SwitchRaws}>
+                        <button onClick={this.props.onLimitChange} value='15'>15 raws</button>
+                        <button onClick={this.props.onLimitChange} value='30'>30 raws</button>
+                        <button onClick={this.props.onLimitChange} value='45'>45 raws</button>
+                    </div>
                 </Modal>
                 <Logo/>
                 <Button click={this.showModal}>Options</Button>
@@ -41,12 +46,14 @@ class Toolbar extends Component{
 };
 const mapStateToProps = state =>{
     return {
-        theme: state.options.theme
+        theme: state.options.theme,
+        limitStep: state.options.limitStep
     };
 };
 const mapDispatchToProps = dispatch =>{
     return{
-        onThemeChange: (data)=> dispatch({type: actionTypes.THEME_CHANGE , data: data})
+        onThemeChange: (data)=> dispatch({type: actionTypes.THEME_CHANGE , data: data}),
+        onLimitChange: (event)=> dispatch({type: actionTypes.LIMIT_CHANGE, event: event})
     };
 };
 

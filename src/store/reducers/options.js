@@ -1,7 +1,8 @@
 import * as actionsType from '../actions/actionTypes';
 
 const initialState = {
-    theme: 'light'
+    theme: 'light',
+    limitStep: 15
 }
 
 const reducer = (state=initialState, action)=>{
@@ -18,6 +19,11 @@ const reducer = (state=initialState, action)=>{
             return{
                 ...state,
                 theme: newData,
+            };
+        case actionsType.LIMIT_CHANGE:
+            return{
+                ...state,
+                limitStep: Number(action.event.target.value),
             };
         default :
             return state;

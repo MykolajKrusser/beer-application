@@ -6,3 +6,10 @@ export const selectBrewer = (data)=>{
         data: data
     }
 };
+
+export const limitChange = (event)=>{
+    return {
+        type: actionTypes.LIMIT_CHANGE,
+        event: event
+    }
+};

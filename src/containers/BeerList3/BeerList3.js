@@ -41,9 +41,9 @@ class BeerList extends Component {
     };
 
     loadMoreHandler = () => {
-        this.setState({limit: Number(this.state.limit + this.state.limitStep)});
+        this.setState({limit: Number(this.state.limit + this.props.limitStep)});
         localStorage.setItem('limit3', null);
-        localStorage.setItem('limit3', Number(this.state.limit + this.state.limitStep));
+        localStorage.setItem('limit3', Number(this.state.limit + this.props.limitStep));
     }
         
     render() {
@@ -68,7 +68,8 @@ class BeerList extends Component {
             let uniqueBrewersName = unique(brewers);
             let brewersName = uniqueBrewersName.map( brewer =>{
                 return <MenuItem key={brewer} onClick={()=>{
-                    this.setState({limit: this.state.limitStep})
+                    this.setState({limit: this.props.limitStep})
+                    this.handleClose();
                     return this.props.onSelectBrewery(brewer)}}>{brewer}</MenuItem>
             });
 
@@ -120,6 +121,7 @@ const mapStateToProps = state =>{
         data: state.data.data,
         loader: state.data.loader,
         selectedBrewer: state.data.selectedBrewer3,
+        limitStep: state.options.limitStep
     };
 };
 const mapDispatchToProps = dispatch =>{
