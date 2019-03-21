@@ -50,9 +50,9 @@ class Toolbar extends Component{
                 <Modal show={this.state.show} modalClosed={this.closeModal}>
                     <MyButton click={this.props.onThemeChange}>SWITCH TO {this.props.theme === 'light' ? 'dark': 'light'} THEME</MyButton>
                     <div className={classes.SwitchRaws}>
-                        <button onClick={this.props.onLimitChange} value='15'>15 raws</button>
-                        <button onClick={this.props.onLimitChange} value='30'>30 raws</button>
-                        <button onClick={this.props.onLimitChange} value='45'>45 raws</button>
+                        <button onClick={this.props.onLimitChange} value='15'>15 rows</button>
+                        <button onClick={this.props.onLimitChange} value='30'>30 rows</button>
+                        <button onClick={this.props.onLimitChange} value='45'>45 rows</button>
                     </div>
                     <div>
                         <Button
@@ -60,7 +60,7 @@ class Toolbar extends Component{
                             aria-haspopup="true"
                             onClick={this.handleClick}
                             >
-                            Sort Raws
+                            Sort Rows by
                         </Button>
                         <Menu
                             id="simple-menu"
