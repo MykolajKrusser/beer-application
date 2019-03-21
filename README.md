@@ -4,31 +4,19 @@ Based on following API: http://ontariobeerapi.ca/ write a beer application
 
 ## The task
 
-Develop an application displaying dynamic tabular datasets using React.js and fetching data using the Github public api.
+ It should consist of:
 
-The app should render an `<input />` that is used to [search repositories](https://developer.github.com/v3/search/). Consider:
-
-* On input change, make an API request to the Github API and get the result data
-* Do not make an API request if the results are already stored
-* Do not fire requests as long as the user is typing. Typically you should throttle requests so that when the user types quickly, we fire one request with the latest input value instead of many
-
-The table itself should be of the following structure:
-
-| ID        | Repo Title         | Owner        | Stars | Created at |
-| ---------:| ------------------ | ------------ | ----: | :--------: |
-| 69101782  | react-native-fbads | callstack-io |   88  | 2016-09-24 |
-
-The resulting table should show maximum 5 rows at once. 
-
-Apart from that, please implement the following: (locally, not using API queries):
-* Pagination
-* Ability to control number of rows rendered (5/10/15/20)
-* Asc/desc sorting by every column
-* A persistence mechanism using e.g. localStorage is required (so it remembers last search and settings when we go back to the page)
-
-And finally:
-
-* The row of the currently authenticated user (if any) should be highlighed. An user should be able to log in using a "Log in with GitHub" button
+1. Three column layout, where each column is a list of beers (Beer endpoint) by Brewer (example Molson, Kompania Piwowarska S.A. etc).
+2. Initially lists are empty, and there’s a drop-down on top of each one with all possible brewers.
+3. After selecting brewer, list is being populated with 15 beers sorted by name. If there’s more than 15 beers of given brewer, there’s “Load more” button in the bottom, which loads another 15 and so on (until all beers are loaded).
+4. The selection should be persisted in given , i.e. after refreshing site, application should remember which brewers were used in which columns.
+5. Each beer entry consist of Name, Type,  Price per litre and image thumbnail.
+6. Image thumbnail should be in a form of circle (radius) with 40px diameter. After clicking on it, full size picture should be visible on overlay centred to the window.
+7. There should be settings modal upon clicking on “Options” button somewhere. Options:
+1. possibility to change layout theme from light to dark,
+2. specifying number of elements loaded in one go (from 15 to 30 for example),
+3. sorting by given field, selected from drop-down: name, price, type; after change it should sort already loaded beers.
+8. All Options should be cached in the browser, for future reuse.
 
 ## So getting started
 
